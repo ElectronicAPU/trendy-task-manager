@@ -1,6 +1,7 @@
 import { connectDB } from "@/helper/db";
 import { User } from "@/models/userModel";
 import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 
 connectDB();
 
@@ -11,25 +12,39 @@ export async function POST(req) {
   try {
     const { name, email, password, gender, profileURL } = await req.json();
 
-    const newUser = new User({
-      name,
-      email,
-      password,
-      gender,
-      profileURL,
-    });
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "User already exists", success: false },
+        { status: 400 }
+      );
+    } else {
+      const newUser = new User({
+        name,
+        email,
+        password,
+        gender,
+        profileURL,
+      });
 
-    const createdUser = await newUser.save();
+      // newUser.password = await bcrypt.hash(newUser.password, process.env.BCRYPT_SALT)
+      // console.log(newUser);
 
-    return NextResponse.json({
-      // data: createdUser,
-      message: "User created successfully",
-      success: true,
-    });
+      const createdUser = await newUser.save();
+
+      return NextResponse.json({
+        // data: createdUser,
+        message: "User created successfully",
+        success: true,
+      });
+    }
   } catch (error) {
-    return NextResponse.json({
-      message: error.message || "Something went wrong",
-      success: false,
-    });
+    return NextResponse.json(
+      {
+        message: error.message || "Something went wrong",
+        success: false,
+      },
+      { status: 500 }
+    );
   }
 }

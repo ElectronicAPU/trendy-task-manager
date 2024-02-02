@@ -1,41 +1,25 @@
-import React, { useMemo, useState } from "react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-} from "@nextui-org/react";
+import React, { useState } from "react";
 
-const GendeDropdown = () => {
-  const [selectedKeys, setSelectedKeys] = useState(new Set(["Male"]));
-
-  const selectedValue = useMemo(
-    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
-  );
+const GenderDropdown = ({ gender, setGender }) => {
+  const handleGenderChange = (event) => {
+    setGender(event.target.value);
+  };
 
   return (
-    <Dropdown className="">
-      <DropdownTrigger>
-        <Button variant=""  className="capitalize border">
-          {selectedValue}
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-      
-        aria-label="Single selection example"
-        variant="flat"
-        disallowEmptySelection
-        selectionMode="single"
-        selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
-      >
-        <DropdownItem key="male">Male</DropdownItem>
-        <DropdownItem key="female">Female</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+    <>
+      <div>
+        <select
+          required
+          className="border w-full h-11 rounded-md px-1 outline-none font-semibold text-sm"
+          value={gender}
+          onChange={handleGenderChange}
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+    </>
   );
 };
 
-export default GendeDropdown;
+export default GenderDropdown;
