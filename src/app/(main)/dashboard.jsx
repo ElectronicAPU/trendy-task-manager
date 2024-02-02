@@ -1,14 +1,11 @@
 "use client";
 import MainLayout from "@/components/layouts/main-layout";
-import { useAppContext } from "@/context/AppContext";
 import { Button, Card, Chip } from "@nextui-org/react";
 import { LayoutDashboard } from "lucide-react";
 import React from "react";
 
 const Dashboard = () => {
-  const { hello, setHello } = useAppContext();
 
-  console.log(hello);
   return (
     <>
       <MainLayout>

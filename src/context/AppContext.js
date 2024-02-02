@@ -1,13 +1,16 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { loggedInUser } from "@/services/userService";
+import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const AppContext = createContext();
 
 export const AppContextWrapper = ({ children }) => {
-  const [hello, setHello] = useState("Hello");
+  const [user, setUser] = useState(undefined);
+
   let sharedState = {
-    hello,
-    setHello,
+    user,
+    setUser,
   };
 
   return (

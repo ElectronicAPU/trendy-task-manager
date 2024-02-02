@@ -1,10 +1,17 @@
 "use client";
+import { useAppContext } from "@/context/AppContext";
 import { signIn } from "@/services/userService";
-import { Button, Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@nextui-org/react";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const SignIn = () => {
@@ -14,6 +21,7 @@ const SignIn = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
 
+  const { user } = useAppContext();
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -29,6 +37,12 @@ const SignIn = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  useEffect(() => {
+    if (user?.email) {
+      router.replace("/");
+    }
+  }, []);
 
   return (
     <>
@@ -97,7 +111,13 @@ const SignIn = () => {
             </CardBody>
           </form>
           <CardFooter className="justify-center">
-            Doesn't have an account? Please <Link className="px-1 font-semibold hover:underline text-blue-600" href="/signup">Sign Up</Link>
+            Doesn't have an account? Please{" "}
+            <Link
+              className="px-1 font-semibold hover:underline text-blue-600"
+              href="/signup"
+            >
+              Sign Up
+            </Link>
           </CardFooter>
         </div>
       </Card>

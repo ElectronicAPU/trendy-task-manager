@@ -1,5 +1,6 @@
 "use client";
 import GenderDropdown from "@/components/dropdowns/gender-dropdown";
+import { useAppContext } from "@/context/AppContext";
 import { signUp } from "@/services/userService";
 import {
   Button,
@@ -31,7 +32,7 @@ const SignUp = () => {
       const result = await signUp(userData);
       if (result.success) {
         toast.success(result.message);
-        router.push("/");
+        router.push("/signin");
       } else {
         toast.error(result.message);
       }
@@ -137,7 +138,13 @@ const SignUp = () => {
             </CardBody>
           </form>
           <CardFooter className="justify-center">
-            Already have an account? Please <Link className="px-1 font-semibold hover:underline text-blue-600" href="/signin">Sign In</Link>
+            Already have an account? Please{" "}
+            <Link
+              className="px-1 font-semibold hover:underline text-blue-600"
+              href="/signin"
+            >
+              Sign In
+            </Link>
           </CardFooter>
         </div>
       </Card>
