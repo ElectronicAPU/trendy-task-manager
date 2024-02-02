@@ -27,8 +27,10 @@ export async function POST(req) {
         profileURL,
       });
 
-      newUser.password = await bcrypt.hash(newUser.password, process.env.BCRYPT_SALT)
-      console.log(newUser);
+      newUser.password = await bcrypt.hash(
+        newUser.password,
+        parseInt(process.env.BCRYPT_SALT)
+      );
 
       const createdUser = await newUser.save();
 
@@ -47,4 +49,13 @@ export async function POST(req) {
       { status: 500 }
     );
   }
+}
+
+// @desc    Get users
+// @api     GET /api/users
+// @access  Private
+export async function GET(req) {
+  const users = await User.find();
+
+  return NextResponse.json(users);
 }

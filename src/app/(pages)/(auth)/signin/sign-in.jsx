@@ -1,10 +1,9 @@
 "use client";
-import GenderDropdown from "@/components/dropdowns/gender-dropdown";
-import { signUp } from "@/services/userService";
+import { signIn } from "@/services/userService";
 import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const SignIn = () => {
@@ -14,8 +13,20 @@ const SignIn = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
 
+  const router = useRouter();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    try {
+      const result = await signIn(loginData);
+      if (result.success) {
+        toast.success(result.message);
+        router.push("/");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (

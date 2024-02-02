@@ -7,9 +7,9 @@ export async function signUp(user) {
 
   return result;
 }
-export async function signIn(user) {
+export async function signIn(loginData) {
   const result = await httpAxios
-    .post("/api/login", user)
+    .post("/api/login", loginData)
     .then((response) => response.data);
 
   return result;
