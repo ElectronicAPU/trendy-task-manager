@@ -1,13 +1,18 @@
 "use client";
+import { navArray } from "@/array/navArray";
 import { Button } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const Header = () => {
   const router = useRouter();
+  const pathname = usePathname();
+
   const handleNavigate = () => {
     router.push("/signup");
   };
+
   const handleHome = () => {
     router.push("/");
   };
@@ -20,11 +25,19 @@ const Header = () => {
             <img className="w-56" src="/images/logo.png" alt="logo" />
           </div>
           <div className="flex gap-6 items-center">
-            <ul className="flex gap-6">
-              <li>Tasks</li>
-              <li>Employees</li>
-              <li>Menage Task</li>
-            </ul>
+            <div className="flex gap-6">
+              {navArray.map((nav, id) => (
+                <Link
+                  href={nav.route}
+                  key={id}
+                  className={`font-bold hover:underline hover:text-indigo-700 tracking-wide ${
+                    pathname == nav.route ? "text-indigo-500 underline" : ""
+                  }`}
+                >
+                  {nav.title}
+                </Link>
+              ))}
+            </div>
             <Button
               onClick={handleNavigate}
               color="warning"

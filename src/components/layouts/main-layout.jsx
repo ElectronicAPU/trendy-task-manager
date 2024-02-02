@@ -9,7 +9,7 @@ const MainLayout = ({ children }) => {
         <div>
           <Header />
         </div>
-        <div className="min-h-screen h-full">{children}</div>
+        <div className="min-h-screen h-full px-4 sm:px-8 xl:px-44 py-8">{children}</div>
         <div>
           <Footer />
         </div>
