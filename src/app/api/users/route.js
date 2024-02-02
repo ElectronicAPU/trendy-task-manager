@@ -27,8 +27,8 @@ export async function POST(req) {
         profileURL,
       });
 
-      // newUser.password = await bcrypt.hash(newUser.password, process.env.BCRYPT_SALT)
-      // console.log(newUser);
+      newUser.password = await bcrypt.hash(newUser.password, process.env.BCRYPT_SALT)
+      console.log(newUser);
 
       const createdUser = await newUser.save();
 

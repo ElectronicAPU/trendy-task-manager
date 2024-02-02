@@ -7,3 +7,10 @@ export async function signUp(user) {
 
   return result;
 }
+export async function signIn(user) {
+  const result = await httpAxios
+    .post("/api/login", user)
+    .then((response) => response.data);
+
+  return result;
+}
