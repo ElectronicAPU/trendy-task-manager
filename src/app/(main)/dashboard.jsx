@@ -1,8 +1,9 @@
 "use client";
 import MainLayout from "@/components/layouts/main-layout";
+import TasksTab from "@/components/tabs/tasks-tab";
 import { useAppContext } from "@/context/AppContext";
 import { loggedInUser } from "@/services/userService";
-import { Button, Card, Chip } from "@nextui-org/react";
+import { Button, Card, CardBody, Chip } from "@nextui-org/react";
 import { LayoutDashboard } from "lucide-react";
 import React, { useEffect } from "react";
 
@@ -32,15 +33,15 @@ const Dashboard = () => {
           <h1 className="font-bold text-xl">Dashboard</h1>
         </div>
         <Card className=" h-full my-4  rounded-lg p-4 ">
-          <Button
-            variant="faded"
-            radius="sm"
-            className="p-2 items-center w-fit"
-          >
-            <h1 className="text-sm font-bold">Team :</h1>
-            <p className="text-sm font-semibold">Front End Developers</p>
-          </Button>
-          <div className="mt-2">
+          <div className="flex justify-between">
+            <Button
+              variant="faded"
+              radius="sm"
+              className="p-2 items-center w-fit"
+            >
+              <h1 className="text-sm font-bold">Team :</h1>
+              <p className="text-sm font-semibold">Front End Developers</p>
+            </Button>
             <Chip
               color="warning"
               radius="sm"
@@ -49,6 +50,9 @@ const Dashboard = () => {
             >
               <h1 className="font-semibold ">Tasks</h1>
             </Chip>
+          </div>
+          <div className="mt-2 flex gap-2">
+            <TasksTab />
           </div>
         </Card>
       </MainLayout>

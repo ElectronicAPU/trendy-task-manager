@@ -18,7 +18,7 @@ export const connectDB = async () => {
     config.isConnected = dbConnection.connection.readyState;
 
     // Set maximum number of listeners to avoid MaxListenersExceededWarning
-    dbConnection.connection.setMaxListeners(15);
+    dbConnection.connection.setMaxListeners(0);
 
     // Event listener for successful connection
     dbConnection.connection.on("connected", () => {

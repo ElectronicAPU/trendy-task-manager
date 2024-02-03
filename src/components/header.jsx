@@ -6,9 +6,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import UserAvatar from "./UserAvatar";
+import UserSkeleton from "./skeletons/user-skeleton";
 
 const Header = () => {
-  const { user } = useAppContext();
+  const { user, loading } = useAppContext();
   // console.log("user",user);
 
   const router = useRouter();
@@ -21,8 +22,6 @@ const Header = () => {
   const handleHome = () => {
     router.push("/");
   };
-
- 
 
   return (
     <>
@@ -45,7 +44,9 @@ const Header = () => {
                 </Link>
               ))}
             </div>
-            {user ? (
+            {loading ? (
+              <UserSkeleton />
+            ) : user ? (
               <UserAvatar />
             ) : (
               <Button

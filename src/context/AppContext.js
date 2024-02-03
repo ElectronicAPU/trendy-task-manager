@@ -6,25 +6,31 @@ const AppContext = createContext();
 
 export const AppContextWrapper = ({ children }) => {
   const [user, setUser] = useState(undefined);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleUser = async () => {
       try {
-        const reuslt = await loggedInUser();
-        if (reuslt.success) {
-          setUser(reuslt.data);
+        const result = await loggedInUser();
+        if (result.success) {
+          setUser(result.data);
         }
       } catch (error) {
-        // toast.error(error.respose.data.message);
-        console.log(error);
+        console.error(error);
+      } finally {
+        // Set loading to false regardless of success or failure
+        setLoading(false);
       }
     };
+
     handleUser();
   }, []);
 
   let sharedState = {
     user,
     setUser,
+    loading,
+    setLoading,
   };
 
   return (
