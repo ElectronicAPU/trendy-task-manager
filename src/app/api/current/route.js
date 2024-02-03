@@ -6,7 +6,7 @@ import { connectDB } from "@/helper/db";
 export async function GET(req) {
   const userToken = await req.cookies.get("token")?.value;
 
-  connectDB();
+  await connectDB();
 
   if (!userToken) {
     return NextResponse.json({ message: "User not logged in", success: false });

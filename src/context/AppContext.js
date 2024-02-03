@@ -1,8 +1,6 @@
 "use client";
-import { connectDB } from "@/helper/db";
 import { loggedInUser } from "@/services/userService";
 import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const AppContext = createContext();
 

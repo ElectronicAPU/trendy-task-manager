@@ -14,7 +14,6 @@ import LogoutModal from "../modals/logout-modal";
 const LogoutDropdown = () => {
   const { user } = useAppContext();
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  console.log(isOpen);
 
   const handleClick = (event) => {
     if (event === "logout") {

@@ -111,7 +111,7 @@ const SignIn = () => {
             </CardBody>
           </form>
           <CardFooter className="justify-center">
-            Doesn't have an account? Please{" "}
+            Doesn&apos;t have an account? Please{" "}
             <Link
               className="px-1 font-semibold hover:underline text-blue-600"
               href="/signup"
