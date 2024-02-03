@@ -6,10 +6,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import UserAvatar from "./UserAvatar";
-import { loggedInUser } from "@/services/userService";
 
 const Header = () => {
-  const { user, setUser } = useAppContext();
+  const { user } = useAppContext();
+  console.log("user",user);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -22,20 +22,7 @@ const Header = () => {
     router.push("/");
   };
 
-  useEffect(() => {
-    const handleUser = async () => {
-      try {
-        const reuslt = await loggedInUser();
-        if (reuslt.success) {
-          setUser(reuslt.data);
-        }
-      } catch (error) {
-        // toast.error(error.respose.data.message);
-        console.log(error);
-      }
-    };
-    handleUser();
-  }, []);
+ 
 
   return (
     <>

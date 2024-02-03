@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { User } from "@/models/userModel";
+import { connectDB } from "@/helper/db";
 
-export async function GET(req, next) {
+export async function GET(req) {
   const userToken = await req.cookies.get("token")?.value;
+
+  connectDB();
 
   if (!userToken) {
     return NextResponse.json({ message: "User not logged in", success: false });
@@ -22,13 +25,19 @@ export async function GET(req, next) {
   } catch (error) {
     if (error.name === "JsonWebTokenError") {
       // Token is malformed or invalid
-      return NextResponse.json({ message: "Invalid token", success: false  });
+      return NextResponse.json({ message: "Invalid token", success: false });
     } else if (error.name === "TokenExpiredError") {
       // Token has expired
-      return NextResponse.json({ message: "Token has expired", success: false  });
+      return NextResponse.json({
+        message: "Token has expired",
+        success: false,
+      });
     } else {
       // Other errors
-      return NextResponse.json({ message: "Internal server error", success: false  });
+      return NextResponse.json({
+        message: "Internal server error",
+        success: false,
+      });
     }
   }
 }

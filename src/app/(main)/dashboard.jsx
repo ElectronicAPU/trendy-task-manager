@@ -1,10 +1,28 @@
 "use client";
 import MainLayout from "@/components/layouts/main-layout";
+import { useAppContext } from "@/context/AppContext";
+import { loggedInUser } from "@/services/userService";
 import { Button, Card, Chip } from "@nextui-org/react";
 import { LayoutDashboard } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Dashboard = () => {
+  const { setUser } = useAppContext();
+
+  useEffect(() => {
+    const handleUser = async () => {
+      try {
+        const reuslt = await loggedInUser();
+        if (reuslt.success) {
+          setUser(reuslt.data);
+        }
+      } catch (error) {
+        // toast.error(error.respose.data.message);
+        console.log(error);
+      }
+    };
+    handleUser();
+  }, []);
 
   return (
     <>
@@ -14,12 +32,21 @@ const Dashboard = () => {
           <h1 className="font-bold text-xl">Dashboard</h1>
         </div>
         <Card className=" h-full my-4  rounded-lg p-4 ">
-          <Button variant="faded" radius="sm" className="p-2 items-center w-fit">
+          <Button
+            variant="faded"
+            radius="sm"
+            className="p-2 items-center w-fit"
+          >
             <h1 className="text-sm font-bold">Team :</h1>
             <p className="text-sm font-semibold">Front End Developers</p>
           </Button>
           <div className="mt-2">
-            <Chip color="warning" radius="sm" variant="dot" className="border-warning">
+            <Chip
+              color="warning"
+              radius="sm"
+              variant="dot"
+              className="border-warning"
+            >
               <h1 className="font-semibold ">Tasks</h1>
             </Chip>
           </div>

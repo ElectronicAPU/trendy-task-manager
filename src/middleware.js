@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
-export function middleware(request) {
+export default function middleware(request) {
   const token = request.cookies.get("token")?.value;
 
   if (!token) {

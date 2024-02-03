@@ -1,4 +1,5 @@
 "use client";
+import { connectDB } from "@/helper/db";
 import { loggedInUser } from "@/services/userService";
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -7,6 +8,21 @@ const AppContext = createContext();
 
 export const AppContextWrapper = ({ children }) => {
   const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    const handleUser = async () => {
+      try {
+        const reuslt = await loggedInUser();
+        if (reuslt.success) {
+          setUser(reuslt.data);
+        }
+      } catch (error) {
+        // toast.error(error.respose.data.message);
+        console.log(error);
+      }
+    };
+    handleUser();
+  }, []);
 
   let sharedState = {
     user,

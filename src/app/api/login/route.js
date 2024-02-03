@@ -5,10 +5,12 @@ import jwt from "jsonwebtoken";
 
 export async function POST(req) {
   const { email, password } = await req.json();
+  console.log(email, password);
 
   try {
     //1. Find User by email
     const user = await User.findOne({ email });
+    console.log("user", user);
 
     if (!user) {
       throw new Error("User not found");
@@ -27,6 +29,7 @@ export async function POST(req) {
     //4. Set the token into the cookie
     const response = NextResponse.json(
       {
+        data: user,
         message: "Login Successfull",
         success: true,
       },

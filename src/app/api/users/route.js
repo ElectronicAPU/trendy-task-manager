@@ -3,7 +3,6 @@ import { User } from "@/models/userModel";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
-connectDB();
 
 // @desc    Create a user
 // @api     POST /api/users
