@@ -8,6 +8,9 @@ export const connectDB = async () => {
       // useUnifiedTopology: true,
     });
 
+    // Set maximum number of listeners to avoid MaxListenersExceededWarning
+    dbConnection.connection.setMaxListeners(15);
+
     // Event listener for successful connection
     dbConnection.connection.on("connected", () => {
       console.log(`MongoDB connected on ${dbConnection.connection.host}`);
@@ -26,7 +29,9 @@ export const connectDB = async () => {
     // Close the Mongoose connection if the Node process ends
     process.on("SIGINT", () => {
       dbConnection.connection.close(() => {
-        console.log("MongoDB connection closed due to Node process termination");
+        console.log(
+          "MongoDB connection closed due to Node process termination"
+        );
         process.exit(0);
       });
     });

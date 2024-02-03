@@ -9,7 +9,7 @@ import UserAvatar from "./UserAvatar";
 
 const Header = () => {
   const { user } = useAppContext();
-  console.log("user",user);
+  // console.log("user",user);
 
   const router = useRouter();
   const pathname = usePathname();
