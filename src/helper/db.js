@@ -1,12 +1,21 @@
 import mongoose from "mongoose";
 
+const config = {
+  isConnected: 0,
+};
+
 export const connectDB = async () => {
+  if (config.isConnected) {
+    return;
+  }
   try {
     const dbConnection = await mongoose.connect(process.env.MONGO_URI, {
       dbName: "data_tables",
       // useNewUrlParser: true,
       // useUnifiedTopology: true,
     });
+    console.log("dbConnection", config.isConnected);
+    config.isConnected = dbConnection.connection.readyState;
 
     // Set maximum number of listeners to avoid MaxListenersExceededWarning
     dbConnection.connection.setMaxListeners(15);

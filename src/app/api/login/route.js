@@ -5,12 +5,10 @@ import jwt from "jsonwebtoken";
 
 export async function POST(req) {
   const { email, password } = await req.json();
-  console.log(email, password);
 
   try {
     //1. Find User by email
     const user = await User.findOne({ email });
-    console.log("user", user);
 
     if (!user) {
       throw new Error("User not found");

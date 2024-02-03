@@ -4,9 +4,7 @@ import { NextResponse } from "next/server";
 export default function middleware(request) {
   const token = request.cookies.get("token")?.value;
 
-  if (!token) {
-    console.log("token not found");
-  } else {
+  if (token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 }

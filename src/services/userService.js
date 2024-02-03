@@ -21,3 +21,10 @@ export async function loggedInUser() {
 
   return result;
 }
+export async function logoutUser() {
+  const result = await httpAxios
+    .post("/api/logout")
+    .then((response) => response.data);
+
+  return result;
+}
