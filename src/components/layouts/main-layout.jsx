@@ -6,7 +6,7 @@ const MainLayout = ({ children }) => {
   return (
     <>
       <div className=" min-h-screen">
-        <div>
+        <div className="hidden lg:block">
           <Header />
         </div>
         <div className="min-h-screen h-full px-4 sm:px-8 xl:px-44 py-8">{children}</div>

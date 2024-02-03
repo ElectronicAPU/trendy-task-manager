@@ -36,7 +36,7 @@ const Header = () => {
                 <Link
                   href={nav.route}
                   key={id}
-                  className={`font-bold hover:underline hover:text-indigo-700 tracking-wide ${
+                  className={`font-semibold hover:underline hover:text-indigo-700 tracking-wide text-sm ${
                     pathname == nav.route ? "text-indigo-500 underline" : ""
                   }`}
                 >

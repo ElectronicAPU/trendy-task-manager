@@ -16,9 +16,7 @@ const LogoutModal = ({ isOpen, onOpenChange, onClose }) => {
 
   const handelLogout = async () => {
     try {
-      console.log("click");
       const result = await logoutUser();
-      console.log("result", result);
 
       if (result.success) {
         toast.success(result.message);
