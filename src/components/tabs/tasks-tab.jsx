@@ -1,12 +1,27 @@
 import { Card, CardBody, Chip, Tab, Tabs } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NoTasks from "../TaskComponents/no-tasks";
 import AllTasks from "../TaskComponents/all-tasks";
+import { getAllTasks } from "@/services/taskService";
+import TaskSkeleton from "../skeletons/task-skeleton";
+import { NotebookTabs } from "lucide-react";
 
 const TasksTab = () => {
-  const tasks = [];
+  const [allTasks, setAllTasks] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
-  console.log(tasks);
+  console.log(allTasks);
+
+  const getTasks = async () => {
+    const response = await getAllTasks();
+    if (response.length > 0) {
+      setAllTasks(response);
+    }
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, [refresh]);
 
   return (
     <>
@@ -20,7 +35,25 @@ const TasksTab = () => {
           <Tab key="owned" title="Owned Tasks">
             <Card radius="sm" shadow="none">
               <CardBody>
-                {tasks.length === 0 ? <NoTasks tasks={tasks} /> : <AllTasks />}
+                <div className="flex items-center gap-1 pb-2 font-semibold text-sm">
+                  <NotebookTabs className="w-4" />
+                  {allTasks?.length === 0 ? (
+                    <p>Add your first task</p>
+                  ) : (
+                    <p>Add more tasks</p>
+                  )}
+                </div>
+                <div className="">
+                  {allTasks === null ? (
+                    <TaskSkeleton />
+                  ) : (
+                    <AllTasks
+                      allTasks={allTasks}
+                      refresh={refresh}
+                      setRefresh={setRefresh}
+                    />
+                  )}
+                </div>
               </CardBody>
             </Card>
           </Tab>

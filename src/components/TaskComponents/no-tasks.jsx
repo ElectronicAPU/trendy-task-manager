@@ -3,12 +3,10 @@ import { NotebookTabs, Plus } from "lucide-react";
 import React from "react";
 import TaskModal from "../modals/task-modal";
 
-const NoTasks = ({ tasks }) => {
+const NoTasks = ({ tasks, refresh, setRefresh }) => {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  console.log(isOpen);
 
   const handleAddTasks = () => {
-    console.log("click");
     onOpen();
   };
 
@@ -16,25 +14,18 @@ const NoTasks = ({ tasks }) => {
     <>
       {isOpen && (
         <TaskModal
+          refresh={refresh}
+          setRefresh={setRefresh}
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           onOpen={onOpen}
           onClose={onClose}
         />
       )}
-      <div>
-        <div className="flex items-center gap-1 pb-2 font-semibold text-sm">
-          <NotebookTabs className="w-4" />
-          {tasks.length === 0 ? (
-            <p>Add your first task</p>
-          ) : (
-            <p>Add more tasks</p>
-          )}
-        </div>
         <Card
           radius="sm"
           isHoverable
-          className="border w-64 h-64 flex justify-center items-center cursor-pointer"
+          className="border h-64 w-full flex justify-center items-center cursor-pointer"
         >
           <CardBody className="justify-center items-center p-1">
             <Button
@@ -47,7 +38,6 @@ const NoTasks = ({ tasks }) => {
             </Button>
           </CardBody>
         </Card>
-      </div>
     </>
   );
 };

@@ -27,7 +27,7 @@ const config = {
   buttons: "bold,italic,underline,|,ul,ol,|,outdent,indent,|,link,|,source",
 };
 
-const TaskModal = ({ isOpen, onOpenChange, onClose }) => {
+const TaskModal = ({ isOpen, onOpenChange, onClose, refresh, setRefresh }) => {
   const [title, setTitle] = useState("");
   const [selectPriority, setSelectPriority] = useState("High");
   const [selectStatus, setSelectStatus] = useState("Starting soon");
@@ -84,6 +84,7 @@ const TaskModal = ({ isOpen, onOpenChange, onClose }) => {
 
     if (response.success) {
       toast.success(response.message);
+      setRefresh(!refresh);
       onClose();
     } else {
       toast.error(response.message);
