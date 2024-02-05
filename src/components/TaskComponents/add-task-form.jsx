@@ -19,37 +19,7 @@ const config = {
 };
 
 const AddTaskForm = () => {
-  const [title, setTitle] = useState("");
-  const [selectPriority, setSelectPriority] = useState("High");
-  const [selectStatus, setSelectStatus] = useState("Starting soon");
-  const [description, setDescription] = useState("");
-
-  const [startDateTime, setStartDateTime] = useState(dayjs());
-  const [endDateTime, setEndDateTime] = useState(dayjs());
-
-  const setStartDateTimeMemoized = useCallback(
-    (newValue) => setStartDateTime(newValue),
-    []
-  );
-
-  const setEndDateTimeMemoized = useCallback(
-    (newValue) => setEndDateTime(newValue),
-    []
-  );
-
-  const startDateTimeInMilliseconds = useMemo(
-    () => startDateTime?.valueOf() || null,
-    [startDateTime]
-  );
-  const endDateTimeInMilliseconds = useMemo(
-    () => endDateTime?.valueOf() || null,
-    [endDateTime]
-  );
-
-
-  const handleJoditChange = useCallback((newContent) => {
-    setDescription(newContent);
-  }, []);
+  
 
   return (
     <>
