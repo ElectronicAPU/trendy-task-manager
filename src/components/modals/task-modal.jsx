@@ -10,10 +10,11 @@ import React from "react";
 import AddTaskForm from "../TaskComponents/add-task-form";
 
 const TaskModal = ({ isOpen, onOpenChange, onClose }) => {
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("hello");
   };
-
   return (
     <>
       <Modal
@@ -28,27 +29,24 @@ const TaskModal = ({ isOpen, onOpenChange, onClose }) => {
         // }}
       >
         <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                Add Task
-              </ModalHeader>
-              <ModalBody>
-                <AddTaskForm handleSubmit={handleSubmit} />
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button
-                  color="primary"
-                  // onPress={onClose}
-                >
-                  Save Task
-                </Button>
-              </ModalFooter>
-            </>
-          )}
+          <form onSubmit={handleSubmit}>
+            <ModalHeader className="flex flex-col gap-1">Add Task</ModalHeader>
+            <ModalBody>
+              <AddTaskForm />
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onClose}>
+                Close
+              </Button>
+              <Button
+                color="primary"
+                // onPress={onClose}
+                type="submit"
+              >
+                Save Task
+              </Button>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>
