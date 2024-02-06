@@ -7,6 +7,9 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import UserAvatar from "./UserAvatar";
 import UserSkeleton from "./skeletons/user-skeleton";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import ModeToggle from "./mode-toggle";
 
 const Header = () => {
   const { user, loading } = useAppContext();
@@ -22,6 +25,10 @@ const Header = () => {
   const handleHome = () => {
     router.push("/");
   };
+
+  // const toggleTheme = () => {
+  //   setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
+  // };
 
   return (
     <>
@@ -44,20 +51,23 @@ const Header = () => {
                 </Link>
               ))}
             </div>
-            {loading ? (
-              <UserSkeleton />
-            ) : user ? (
-              <UserAvatar />
-            ) : (
-              <Button
-                onClick={handleNavigate}
-                color="warning"
-                radius="sm"
-                className="uppercase font-semibold w-32"
-              >
-                Sign Up
-              </Button>
-            )}
+            <div className="flex justify-center items-center gap-2">
+              <ModeToggle />
+              {loading ? (
+                <UserSkeleton />
+              ) : user ? (
+                <UserAvatar />
+              ) : (
+                <Button
+                  onClick={handleNavigate}
+                  color="warning"
+                  radius="sm"
+                  className="uppercase font-semibold w-32"
+                >
+                  Sign Up
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
