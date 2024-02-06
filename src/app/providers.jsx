@@ -8,10 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 export function Providers({ children }) {
   return (
     <>
-      <NextUIProvider>
-        <ThemeProvider>{children}</ThemeProvider>
-        <ToastContainer />
-      </NextUIProvider>
+      <ThemeProvider defaultTheme="light" attribute="class">
+        <NextUIProvider>
+          {children}
+          <ToastContainer />
+        </NextUIProvider>
+      </ThemeProvider>
     </>
   );
 }

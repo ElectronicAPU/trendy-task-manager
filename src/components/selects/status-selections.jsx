@@ -22,7 +22,7 @@ const StatusSelctions = ({ selectStatus, setSelectStatus }) => {
     <>
       <div className="relative">
         <div
-          className={`w-72 border-2 h-12 rounded-md px-2 bg-white flex items-center`}
+          className={`w-full sm:w-72 border-2 h-12 rounded-md px-2 flex items-center`}
         >
           <div
             className={`w-2 h-2 rounded-full ${selectedStatus ? selectedStatus.color : ''}`}
@@ -31,7 +31,7 @@ const StatusSelctions = ({ selectStatus, setSelectStatus }) => {
         </div>
         <select
           onChange={(e) => setSelectStatus(e.target.value)}
-          className="absolute inset-0 opacity-0 cursor-pointer w-72"
+          className="absolute inset-0 opacity-0 cursor-pointer w-full sm:w-72"
         >
           {statusArray.map((status, id) => (
             <option key={id} value={status.status} className="text-sm">

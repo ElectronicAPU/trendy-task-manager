@@ -21,7 +21,7 @@ const PrioritySelection = ({selectPriority,setSelectPriority }) => {
     <>
       <div className="relative">
         <div
-          className={`w-72 border-2 h-12 rounded-md px-2 bg-white flex items-center`}
+          className={`w-full sm:w-72 border-2 h-12 rounded-md px-2 flex items-center`}
         >
           <div
             className={`w-2 h-2 rounded-full ${prioritiesArray.find(
@@ -32,7 +32,7 @@ const PrioritySelection = ({selectPriority,setSelectPriority }) => {
         </div>
         <select
           onChange={(e) => setSelectPriority(e.target.value)}
-          className="absolute inset-0 opacity-0 cursor-pointer w-72"
+          className="absolute inset-0 opacity-0 cursor-pointer w-full sm:w-72"
         >
           {prioritiesArray.map((priority, id) => (
             <option key={id} value={priority.priority} className="text-sm">

@@ -20,12 +20,10 @@ body,
 
 
 :root {
-  /* Your default theme */
-  --background: white;
-  --foreground: #424549;
+  --dark-mode-background-color: black;
+  --light-mode-background-color: #ffffff;
 }
 
-[data-theme='dark'] {
-  --background: #424549;
-  --foreground: white;
+.dark {
+  background-color: var(--dark-mode-background-color);
 }
