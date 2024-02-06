@@ -19,3 +19,12 @@ export async function getAllTasks() {
     throw new Error("Failed to get task");
   }
 }
+export async function getTaskById(taskId) {
+  try {
+    const { data } = await httpAxios.post(`/api/tasks/${taskId}`, taskId);
+    return data;
+  } catch (error) {
+    console.error("Error creating task:", error);
+    throw new Error("Failed to get task");
+  }
+}

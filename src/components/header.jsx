@@ -4,11 +4,9 @@ import { useAppContext } from "@/context/AppContext";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import UserAvatar from "./UserAvatar";
 import UserSkeleton from "./skeletons/user-skeleton";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import ModeToggle from "./mode-toggle";
 
 const Header = () => {

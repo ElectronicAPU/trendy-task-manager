@@ -9,10 +9,8 @@ export function Providers({ children }) {
   return (
     <>
       <NextUIProvider>
-        <ThemeProvider defaultTheme="light">
-          {children}
-          <ToastContainer />
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+        <ToastContainer />
       </NextUIProvider>
     </>
   );

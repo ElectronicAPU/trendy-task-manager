@@ -7,15 +7,20 @@ import TaskSkeleton from "../skeletons/task-skeleton";
 import { NotebookTabs } from "lucide-react";
 
 const TasksTab = () => {
-  const [allTasks, setAllTasks] = useState(null);
+  const [allTasks, setAllTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
-
-  console.log(allTasks);
+  const [loading, setLoading] = useState(true);
 
   const getTasks = async () => {
-    const response = await getAllTasks();
-    if (response.length > 0) {
-      setAllTasks(response);
+    try {
+      const response = await getAllTasks();
+      if (response.length > 0) {
+        setAllTasks(response);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,15 +49,12 @@ const TasksTab = () => {
                   )}
                 </div>
                 <div className="">
-                  {allTasks === null ? (
-                    <TaskSkeleton />
-                  ) : (
-                    <AllTasks
-                      allTasks={allTasks}
-                      refresh={refresh}
-                      setRefresh={setRefresh}
-                    />
-                  )}
+                  <AllTasks
+                    loading={loading}
+                    allTasks={allTasks}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                  />
                 </div>
               </CardBody>
             </Card>
