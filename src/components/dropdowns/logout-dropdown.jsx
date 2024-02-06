@@ -31,7 +31,7 @@ const LogoutDropdown = () => {
       )}
       <Dropdown radius="sm">
         <DropdownTrigger>
-          <Button variant="light" className="p-1 w-32">
+          <Button variant="light" className="p-1 w-full">
             <User
               name={user?.name}
               description={user?.tagName}

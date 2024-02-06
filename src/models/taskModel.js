@@ -6,8 +6,8 @@ const taskSchema = new Schema(
     title: { type: String, required: true },
     priority: { type: String, required: true, default: "High" },
     status: { type: String, required: true, default: "Starting soon" },
-    startdate: { type: Date, required: true },
-    enddate: { type: Date, required: true },
+    startdate: { type: String, required: true },
+    enddate: { type: String, required: true },
     description: { type: String, required: true },
   },
   {

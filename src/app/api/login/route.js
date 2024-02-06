@@ -36,7 +36,7 @@ export async function POST(req) {
 
     const oneDay = 24 * 60 * 60 * 1000;
     response.cookies.set("token", token, {
-      expires: Date.now() - oneDay,
+      expiresIn: Date.now() - oneDay,
       httpOnly: true,
     });
 

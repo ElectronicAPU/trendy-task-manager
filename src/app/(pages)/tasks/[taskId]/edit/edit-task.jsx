@@ -36,12 +36,39 @@ const EditTask = () => {
   const [description, setDescription] = useState(singleTask?.description || "");
   const [loading, setLoading] = useState(true);
 
-  const [startDateTime, setStartDateTime] = useState(
-    dayjs(singleTask?.startdate || new Date())
-  );
+  const [formatTime, setFormatTime] = useState();
   const [endDateTime, setEndDateTime] = useState(
     dayjs(singleTask?.enddate || new Date())
   );
+
+  console.log(singleTask);
+
+  useEffect(() => {
+    const handleDateTime = () => {
+      const end_date = parseInt(singleTask?.enddate); // Parse as integer
+
+      // If you want to use dayjs for formatting
+      // const formattedEndDate = dayjs(end_date).format("YYYY-MM-DD HH:mm:ss");
+
+      if (!isNaN(end_date) && singleTask?.enddate) {
+        const formattedEndDate = new Date(end_date).toLocaleDateString(
+          undefined,
+          {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }
+        );
+        setFormatTime(formattedEndDate);
+        return formattedEndDate;
+      }
+    };
+
+    handleDateTime();
+  }, [singleTask?.enddate]);
 
   const { taskId } = useParams();
 
@@ -55,7 +82,6 @@ const EditTask = () => {
           setSelectPriority(response.data.priority || "");
           setSelectStatus(response.data.status || "");
           setDescription(response.data.description || "");
-          setStartDateTime(dayjs(response.data.startdate || new Date()));
           setEndDateTime(dayjs(response.data.enddate || new Date()));
         } else {
           console.log(response.message);
@@ -71,20 +97,11 @@ const EditTask = () => {
 
   const { onClose } = useDisclosure();
 
-  const setStartDateTimeMemoized = useCallback(
-    (newValue) => setStartDateTime(newValue),
-    []
-  );
-
   const setEndDateTimeMemoized = useCallback(
     (newValue) => setEndDateTime(newValue),
     []
   );
 
-  const startDateTimeInMilliseconds = useMemo(
-    () => startDateTime?.valueOf() || null,
-    [startDateTime]
-  );
   const endDateTimeInMilliseconds = useMemo(
     () => endDateTime?.valueOf() || null,
     [endDateTime]
@@ -170,12 +187,9 @@ const EditTask = () => {
             {/* Date picker */}
             <div className="flex flex-col sm:flex-row gap-4">
               <div>
-                <h1 className="text-sm font-semibold pb-1">Start Date</h1>
-                <div className="-mt-2 text-white">
-                  <StartDatePicker
-                    startDateTime={startDateTime}
-                    setStartDateTime={setStartDateTimeMemoized}
-                  />
+                <h1 className="text-sm font-semibold pb-1">Start Date (Fixed)*</h1>
+                <div className="h-14 sm:w-72 border border-warning-500 rounded-md flex items-center px-4">
+                  <span>{formatTime}</span>
                 </div>
               </div>
               <div>
