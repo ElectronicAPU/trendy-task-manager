@@ -1,14 +1,17 @@
 "use client";
+import Loader from "@/components/Loader";
 import EndDatePicker from "@/components/datepickers/end-date-picker";
 import StartDatePicker from "@/components/datepickers/start-date-picker";
 import MainLayout from "@/components/layouts/main-layout";
 import PrioritySelection from "@/components/selects/priority-selection";
 import StatusSelctions from "@/components/selects/status-selections";
+import { getTaskById } from "@/services/taskService";
 import { Button, Input, useDisclosure } from "@nextui-org/react";
 import dayjs from "dayjs";
 import { Edit } from "lucide-react";
 import dynamic from "next/dynamic";
-import React, { useCallback, useMemo, useState } from "react";
+import { useParams } from "next/navigation";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
 // Import JoditEditor dynamically
@@ -22,13 +25,49 @@ const config = {
 };
 
 const EditTask = () => {
-  const [title, setTitle] = useState("");
-  const [selectPriority, setSelectPriority] = useState("High");
-  const [selectStatus, setSelectStatus] = useState("Starting soon");
-  const [description, setDescription] = useState("");
+  const [singleTask, setSingleTask] = useState({});
+  const [title, setTitle] = useState(singleTask?.title || "");
+  const [selectPriority, setSelectPriority] = useState(
+    singleTask?.priority || "High"
+  );
+  const [selectStatus, setSelectStatus] = useState(
+    singleTask?.status || "Starting soon"
+  );
+  const [description, setDescription] = useState(singleTask?.description || "");
+  const [loading, setLoading] = useState(true);
 
-  const [startDateTime, setStartDateTime] = useState(dayjs());
-  const [endDateTime, setEndDateTime] = useState(dayjs());
+  const [startDateTime, setStartDateTime] = useState(
+    dayjs(singleTask?.startdate || new Date())
+  );
+  const [endDateTime, setEndDateTime] = useState(
+    dayjs(singleTask?.enddate || new Date())
+  );
+
+  const { taskId } = useParams();
+
+  useEffect(() => {
+    const handleTask = async () => {
+      try {
+        const response = await getTaskById({ taskId });
+        if (response.success) {
+          setSingleTask(response.data);
+          setTitle(response.data.title || "");
+          setSelectPriority(response.data.priority || "");
+          setSelectStatus(response.data.status || "");
+          setDescription(response.data.description || "");
+          setStartDateTime(dayjs(response.data.startdate || new Date()));
+          setEndDateTime(dayjs(response.data.enddate || new Date()));
+        } else {
+          console.log(response.message);
+        }
+      } catch (error) {
+        console.error("Error fetching task:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    handleTask();
+  }, [taskId]);
 
   const { onClose } = useDisclosure();
 
@@ -90,6 +129,7 @@ const EditTask = () => {
   return (
     <>
       <MainLayout>
+        {loading && <Loader />}
         <form onSubmit={handleSubmit}>
           <div className="flex gap-1 py-2 text-xl font-bold mb-4">
             <Edit /> Update Task
