@@ -37,3 +37,13 @@ export async function updateTask(formData, taskId) {
     throw new Error("Failed to get task");
   }
 }
+
+export async function deleteTask(taskId) {
+  try {
+    const { data } = await httpAxios.delete(`/api/tasks/${taskId}`);
+    return data;
+  } catch (error) {
+    console.error("Error creating task:", error);
+    throw new Error("Failed to get task");
+  }
+}

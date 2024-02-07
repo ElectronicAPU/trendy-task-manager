@@ -1,5 +1,6 @@
 "use client";
 import MainLayout from "@/components/layouts/main-layout";
+import DeleteTaskModal from "@/components/modals/delete-task-modal";
 import { getTaskById } from "@/services/taskService";
 import {
   Button,
@@ -9,6 +10,7 @@ import {
   Code,
   Skeleton,
   Tooltip,
+  useDisclosure,
 } from "@nextui-org/react";
 import { Edit, Trash } from "lucide-react";
 import Link from "next/link";
@@ -21,6 +23,7 @@ const TaskId = () => {
 
   const { taskId } = useParams();
   const router = useRouter();
+  const { isOpen, onOpenChange, onOpen } = useDisclosure();
 
   useEffect(() => {
     const handleTask = async () => {
@@ -44,8 +47,15 @@ const TaskId = () => {
     router.push(`/tasks/${taskId}/edit`);
   };
 
+  const handleOpenModal = () => {
+    onOpen();
+  };
+
   return (
     <>
+      {isOpen && (
+        <DeleteTaskModal onOpenChange={onOpenChange} isOpen={isOpen} />
+      )}
       <MainLayout>
         <Card radius="sm">
           <CardHeader>
@@ -87,6 +97,7 @@ const TaskId = () => {
                   content="Delete Task"
                 >
                   <Button
+                    onClick={handleOpenModal}
                     size="sm"
                     className="bg-danger-500 border-none"
                     radius="sm"
