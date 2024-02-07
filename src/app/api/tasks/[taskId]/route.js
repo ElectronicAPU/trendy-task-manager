@@ -35,3 +35,35 @@ export async function POST(req) {
     );
   }
 }
+
+// @desc    Delete task
+// @api     DELETE /api/tasks/[task_id]
+// @access  Public
+export async function DELETE(req, { params }) {
+  const { taskId } = params;
+
+  try {
+    const findTask = await Task.findById(taskId);
+
+    if (!findTask) {
+      return NextResponse.json(
+        { message: "Task not found", success: false },
+        { status: 404 }
+      );
+    } else {
+      await Task.deleteOne({ _id: taskId });
+
+      return NextResponse.json(
+        { message: "Task deleted", success: true },
+        { status: 200 }
+      );
+    }
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json(
+      { message: error.message, success: false },
+      { status: 500 }
+    );
+  }
+}
+

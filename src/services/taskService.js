@@ -29,7 +29,6 @@ export async function getTaskById(taskId) {
   }
 }
 export async function updateTask(formData, taskId) {
-  console.log("taskId in service",taskId);
   try {
     const { data } = await httpAxios.put(`/api/tasks/${taskId}/edit`, formData);
     return data;

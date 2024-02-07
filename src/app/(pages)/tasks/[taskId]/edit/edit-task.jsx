@@ -5,12 +5,12 @@ import MainLayout from "@/components/layouts/main-layout";
 import PrioritySelection from "@/components/selects/priority-selection";
 import StatusSelctions from "@/components/selects/status-selections";
 import { getTaskById, updateTask } from "@/services/taskService";
-import { Button, Input, useDisclosure } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import dayjs from "dayjs";
 import { Edit } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useParams, useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
