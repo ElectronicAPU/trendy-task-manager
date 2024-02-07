@@ -97,11 +97,11 @@ const EditTask = () => {
       };
 
       const singleTaskDataToCompare = {
-        title: singleTask.title,
-        priority: singleTask.priority,
-        status: singleTask.status,
-        enddate: Number(singleTask.enddate), // Convert to number
-        description: singleTask.description,
+        title: singleTask?.title,
+        priority: singleTask?.priority,
+        status: singleTask?.status,
+        enddate: Number(singleTask?.enddate), // Convert to number
+        description: singleTask?.description,
       };
 
       if (

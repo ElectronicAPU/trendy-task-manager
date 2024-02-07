@@ -68,7 +68,7 @@ const TaskId = () => {
                   </Skeleton>
                 ) : (
                   <Code className=" w-fit px-1 py-0.5 text-sm sm:text-xl font-bold ">
-                    <span>{singleTask.title}</span>
+                    <span>{singleTask?.title}</span>
                   </Code>
                 )}
               </div>
@@ -123,14 +123,14 @@ const TaskId = () => {
                     <Code className=" w-fit px-1 py-0.5 rounded-md flex items-center gap-1 font-semibold">
                       <div
                         className={`w-2 h-2  rounded-full ${
-                          singleTask.status === "Work in progress"
+                          singleTask?.status === "Work in progress"
                             ? "bg-yellow-500"
-                            : singleTask.status === "Starting soon"
+                            : singleTask?.status === "Starting soon"
                             ? "bg-gray-500"
                             : "bg-green-500"
                         }`}
                       ></div>
-                      <span>{singleTask.status}</span>
+                      <span>{singleTask?.status}</span>
                     </Code>
                     <Link
                       href={`/tasks/${taskId}/edit`}
@@ -152,14 +152,14 @@ const TaskId = () => {
                     <Code className=" w-fit px-1 py-0.5 rounded-md flex items-center gap-1 font-semibold">
                       <div
                         className={`w-2 h-2  rounded-full ${
-                          singleTask.priority === "High"
+                          singleTask?.priority === "High"
                             ? "bg-red-500"
-                            : singleTask.priority === "Medium"
+                            : singleTask?.priority === "Medium"
                             ? "bg-yellow-500"
                             : "bg-green-500"
                         }`}
                       ></div>
-                      <span>{singleTask.priority}</span>
+                      <span>{singleTask?.priority}</span>
                     </Code>
                     <Link
                       href={`/tasks/${taskId}/edit`}
@@ -181,7 +181,7 @@ const TaskId = () => {
                     <div
                       className="text-sm "
                       dangerouslySetInnerHTML={{
-                        __html: singleTask.description,
+                        __html: singleTask?.description,
                       }}
                     />
                   </Code>

@@ -5,17 +5,22 @@ import AllTasks from "../TaskComponents/all-tasks";
 import { getAllTasks } from "@/services/taskService";
 import TaskSkeleton from "../skeletons/task-skeleton";
 import { NotebookTabs } from "lucide-react";
+import { useAppContext } from "@/context/AppContext";
 
 const TasksTab = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const { user } = useAppContext();
+
   const getTasks = async () => {
     try {
-      const response = await getAllTasks();
-      if (response.length > 0) {
-        setAllTasks(response);
+      if (user) {
+        const response = await getAllTasks();
+        if (response.length > 0) {
+          setAllTasks(response);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -26,7 +31,7 @@ const TasksTab = () => {
 
   useEffect(() => {
     getTasks();
-  }, [refresh]);
+  }, [refresh, user]);
 
   return (
     <>
