@@ -29,8 +29,9 @@ export async function getTaskById(taskId) {
   }
 }
 export async function updateTask(formData, taskId) {
+  console.log("taskId in service",taskId);
   try {
-    const { data } = await httpAxios.post(`/api/tasks/${taskId}`, formData);
+    const { data } = await httpAxios.put(`/api/tasks/${taskId}/edit`, formData);
     return data;
   } catch (error) {
     console.error("Error creating task:", error);
