@@ -41,7 +41,6 @@ const EditTask = () => {
     dayjs(singleTask?.enddate || new Date())
   );
 
-  console.log(singleTask);
 
   useEffect(() => {
     const handleDateTime = () => {
@@ -68,7 +67,7 @@ const EditTask = () => {
     };
 
     handleDateTime();
-  }, [singleTask?.enddate]);
+  }, [singleTask?.enddate, endDateTime]);
 
   const { taskId } = useParams();
 
@@ -82,7 +81,7 @@ const EditTask = () => {
           setSelectPriority(response.data.priority || "");
           setSelectStatus(response.data.status || "");
           setDescription(response.data.description || "");
-          setEndDateTime(dayjs(response.data.enddate || new Date()));
+          setEndDateTime(dayjs(Number(response.data.enddate) || new Date()));
         } else {
           console.log(response.message);
         }
@@ -99,7 +98,7 @@ const EditTask = () => {
 
   const setEndDateTimeMemoized = useCallback(
     (newValue) => setEndDateTime(newValue),
-    []
+    [endDateTime]
   );
 
   const endDateTimeInMilliseconds = useMemo(
@@ -109,7 +108,7 @@ const EditTask = () => {
 
   const handleJoditChange = useCallback((newContent) => {
     setDescription(newContent);
-  }, []);
+  }, [description]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,20 +126,21 @@ const EditTask = () => {
       title,
       priority: selectPriority,
       status: selectStatus,
-      startdate: startDateTimeInMilliseconds,
       enddate: endDateTimeInMilliseconds,
       description,
     };
 
-    const response = await createTask(formData);
+    console.log(formData);
 
-    if (response.success) {
-      toast.success(response.message);
-      // setRefresh(!refresh);
-      onClose();
-    } else {
-      toast.error(response.message);
-    }
+    // const response = await createTask(formData);
+
+    // if (response.success) {
+    //   toast.success(response.message);
+    //   // setRefresh(!refresh);
+    //   onClose();
+    // } else {
+    //   toast.error(response.message);
+    // }
   };
 
   return (
