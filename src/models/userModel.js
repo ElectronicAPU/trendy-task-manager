@@ -10,8 +10,10 @@ const UserSchema = new Schema(
       type: String,
       default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
     },
+    isTeamAdmin: { type: Boolean, default: false },
     isAdmin: { type: Boolean, default: false },
-    tagName: { type: [String], default: ["employee"] },
+    tagName: { type: String, default: "Employee" },
+    team: { type: [String], default: [""] },
   },
   {
     timestamps: true,

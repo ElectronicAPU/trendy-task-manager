@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import LogoutModal from "../modals/logout-modal";
+import logical from "@/utils/logics";
 
 const LogoutDropdown = () => {
   const { user } = useAppContext();

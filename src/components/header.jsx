@@ -8,13 +8,14 @@ import React from "react";
 import UserAvatar from "./UserAvatar";
 import UserSkeleton from "./skeletons/user-skeleton";
 import ModeToggle from "./mode-toggle";
+import Loader from "./Loader";
+import NavOption from "./nav-option";
 
 const Header = () => {
   const { user, loading } = useAppContext();
   // console.log("user",user);
 
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleNavigate = () => {
     router.push("/signup");
@@ -30,6 +31,7 @@ const Header = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <div className=" p-4 px-8 border-b rounded-b-xl ">
         <div className="flex justify-between items-center">
           <div className=" cursor-pointer" onClick={handleHome}>
@@ -37,17 +39,7 @@ const Header = () => {
           </div>
           <div className="flex gap-6 items-center">
             <div className="flex gap-6">
-              {navArray.map((nav, id) => (
-                <Link
-                  href={nav.route}
-                  key={id}
-                  className={`font-semibold hover:underline hover:text-indigo-700 tracking-wide text-sm ${
-                    pathname == nav.route ? "text-indigo-500 underline" : ""
-                  }`}
-                >
-                  {nav.title}
-                </Link>
-              ))}
+              <NavOption />
             </div>
             <div className="flex justify-center items-center gap-2">
               <ModeToggle />

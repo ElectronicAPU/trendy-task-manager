@@ -22,7 +22,9 @@ export async function POST(req) {
     }
 
     //3. Create a JWT token for the user
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
 
     //4. Set the token into the cookie
     const response = NextResponse.json(
@@ -34,10 +36,12 @@ export async function POST(req) {
       { status: 200 }
     );
 
-    const oneDay = 24 * 60 * 60 * 1000;
+    const oneDayInSeconds = 24 * 60 * 60;
     response.cookies.set("token", token, {
-      expiresIn: Date.now() - oneDay,
       httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      maxAge: oneDayInSeconds,
+      sameSite: "strict",
     });
 
     return response;
