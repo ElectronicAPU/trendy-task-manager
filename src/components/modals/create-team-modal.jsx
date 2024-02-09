@@ -12,7 +12,13 @@ import {
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const CreateTeamModal = ({ isOpen, onOpenChange, onClose }) => {
+const CreateTeamModal = ({
+  isOpen,
+  onOpenChange,
+  onClose,
+  refresh,
+  setRefresh,
+}) => {
   const [formData, setformData] = useState({
     teamName: "",
     purpose: "",
@@ -25,6 +31,7 @@ const CreateTeamModal = ({ isOpen, onOpenChange, onClose }) => {
       if (response.success) {
         toast.success(response.message);
         onClose();
+        setRefresh(!refresh);
       } else {
         toast.error(response.message);
       }
@@ -55,6 +62,7 @@ const CreateTeamModal = ({ isOpen, onOpenChange, onClose }) => {
                   type="text"
                   name="teamName"
                   id="teamName"
+                  value={formData.teamName}
                   onChange={(e) =>
                     setformData((prevValue) => ({
                       ...prevValue,
@@ -73,6 +81,10 @@ const CreateTeamModal = ({ isOpen, onOpenChange, onClose }) => {
                       purpose: e.target.value,
                     }))
                   }
+                  id="purpose"
+                  type="text"
+                  name="purpose"
+                  value={formData.purpose}
                   maxLength={200}
                   isRequired
                   placeholder="Enter your purpose"

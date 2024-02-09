@@ -2,7 +2,7 @@
 import { Team } from "@/models/teamModel";
 import { NextResponse } from "next/server";
 import { nanoid } from "nanoid";
-import { findToken, findUser } from "@/utils/userHandlling"; 
+import { findToken, findUser } from "@/utils/userHandlling";
 
 // @desc    Create a Team
 // @api     POST /api/users/admin/team
@@ -55,6 +55,22 @@ export async function POST(req) {
     console.error("Error creating team:", error);
     return NextResponse.json(
       { message: "Failed to create a team", success: false },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(req) {
+  try {
+    const teams = await Team.find();
+    return NextResponse.json(
+      { data: teams, message: "Successfull fetch teams", success: true },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching teams:", error);
+    return NextResponse.json(
+      { message: "Failed to fetch teams", success: false },
       { status: 500 }
     );
   }
