@@ -4,11 +4,13 @@ export const employeeArray = [
     title: "Front-end team",
     desc: "awbd abwdiab idb aiwdba wda iwdiabwdi awdbia dwa ijwdiabjwd adiadiwa wdbadw aibwdjd",
     route: "/employees",
+    invitationCode: crypto.randomUUID()
   },
   {
     id: 2,
     title: "Back-end team",
     desc: "awbd abwdiab idb aiwdba wda iwdiabwdi awdbia dwa ijwdiabjwd adiadiwa wdbadw aibwdjd",
     route: "/employees",
+    invitationCode: crypto.randomUUID()
   },
 ];

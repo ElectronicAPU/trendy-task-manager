@@ -10,7 +10,6 @@ const AllTasks = ({ allTasks, loading, refresh, setRefresh }) => {
   const router = useRouter();
 
   const goToTaskPage = (taskId) => {
-    console.log("taskId", taskId);
     if (!taskId) {
       toast.error("Task not found");
       return;
