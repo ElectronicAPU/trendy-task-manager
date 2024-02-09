@@ -1,3 +1,4 @@
+import { createTeam } from "@/services/teamService";
 import {
   Button,
   Input,
@@ -9,14 +10,27 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const CreateTeamModal = ({ isOpen, onOpenChange, onClose }) => {
   const [formData, setformData] = useState({
     teamName: "",
+    purpose: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await createTeam(formData);
+      if (response.success) {
+        toast.success(response.message);
+        onClose();
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -53,6 +67,12 @@ const CreateTeamModal = ({ isOpen, onOpenChange, onClose }) => {
               <div>
                 <h1 className="text-sm font-semibold mb-1">Purpose</h1>
                 <Textarea
+                  onChange={(e) =>
+                    setformData((prevValue) => ({
+                      ...prevValue,
+                      purpose: e.target.value,
+                    }))
+                  }
                   maxLength={200}
                   isRequired
                   placeholder="Enter your purpose"
@@ -64,11 +84,7 @@ const CreateTeamModal = ({ isOpen, onOpenChange, onClose }) => {
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button
-                color="primary"
-                // onPress={onClose}
-                type="submit"
-              >
+              <Button color="primary" type="submit">
                 Create
               </Button>
             </ModalFooter>
