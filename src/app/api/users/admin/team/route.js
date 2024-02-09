@@ -36,6 +36,7 @@ export async function POST(req) {
 
     // Create a new team instance
     const team = new Team({
+      users: [currUser._id],
       teamName,
       purpose,
       teamAdmin: currUser._id,
