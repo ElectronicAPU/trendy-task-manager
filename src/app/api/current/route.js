@@ -4,9 +4,9 @@ import { User } from "@/models/userModel";
 import { connectDB } from "@/helper/db";
 
 export async function GET(req) {
-  await connectDB();
-  const userToken = await req.cookies.get("token")?.value;
   try {
+    await connectDB();
+    const userToken = await req.cookies.get("token")?.value;
 
     console.log(userToken);
     if (!userToken) {

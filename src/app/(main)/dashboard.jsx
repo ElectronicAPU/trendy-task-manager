@@ -1,15 +1,13 @@
 "use client";
+import React from "react";
+
 import MainLayout from "@/components/layouts/main-layout";
 import TasksTab from "@/components/tabs/tasks-tab";
-import { useAppContext } from "@/context/AppContext";
-import { loggedInUser } from "@/services/userService";
-import { Button, Card, CardBody, Chip, Input } from "@nextui-org/react";
-import { LayoutDashboard } from "lucide-react";
-import React, { useEffect } from "react";
+import AllTeams from "@/components/teams/all-teams";
+import { Button, Card, Chip } from "@nextui-org/react";
+import { LayoutDashboard, Users } from "lucide-react";
 
 const Dashboard = () => {
-  const { setUser } = useAppContext();
-
   return (
     <>
       <MainLayout>
@@ -32,9 +30,14 @@ const Dashboard = () => {
                 <input
                   type="text"
                   placeholder="Enter invitation code"
-                  className="h-full outline-none border rounded-lg px-2 text-sm"
+                  className="h-full outline-none border-2 border-gray-600 rounded-lg px-2 text-sm "
                 />
-                <Button radius="sm" variant="shadow" color="warning" className="font-semibold">
+                <Button
+                  radius="sm"
+                  variant="shadow"
+                  color="warning"
+                  className="font-semibold"
+                >
                   Join
                 </Button>
               </div>
@@ -53,6 +56,11 @@ const Dashboard = () => {
             <TasksTab />
           </div>
         </Card>
+        <div className="h-full flex items-center gap-1 mt-8">
+          <Users />
+          <h1 className="font-bold text-xl">Teams</h1>
+        </div>
+        <AllTeams />
       </MainLayout>
     </>
   );
