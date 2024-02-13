@@ -65,7 +65,7 @@ const Employess = () => {
           </Tooltip>
         </div>
         {teams.map((team) => (
-          <Link key={team._id} href={`/employees/team/${team.teamName}`}>
+          <Link key={team._id} href={`/employees/team/${team._id}`}>
             <div className=" flex gap-4 my-3 hover:bg-gray-50 w-64 max-w-full p-2 transition-colors duration-300 rounded-lg">
               <div className="bg-gray-100 w-12 h-12 p-3 rounded-lg flex justify-center items-center">
                 <FactoryIcon className="w-4" />

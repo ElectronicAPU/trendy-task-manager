@@ -18,3 +18,12 @@ export async function getTeams() {
     throw new Error("Failed to creat team");
   }
 }
+export async function getTeamUsers(teamId) {
+  try {
+    const { data } = await httpAxios.get(`/api/users/admin/team/${teamId}`);
+    return data;
+  } catch (error) {
+    console.error("Error creating team:", error);
+    throw new Error("Failed to creat team");
+  }
+}
