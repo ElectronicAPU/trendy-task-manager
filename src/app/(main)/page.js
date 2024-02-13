@@ -1,3 +1,4 @@
+import { loggedInUser } from "@/services/userService";
 import Dashboard from "./dashboard";
 
 export const metadata = {
