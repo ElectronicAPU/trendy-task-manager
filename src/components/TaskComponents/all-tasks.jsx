@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 const AllTasks = ({ allTasks, loading, refresh, setRefresh }) => {
   const router = useRouter();
 
+  console.log(allTasks);
+
   const goToTaskPage = (taskId) => {
     if (!taskId) {
       toast.error("Task not found");

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import MainLayout from "@/components/layouts/main-layout";
 import TasksTab from "@/components/tabs/tasks-tab";
@@ -8,6 +8,7 @@ import { Button, Card, Chip } from "@nextui-org/react";
 import { LayoutDashboard, Users } from "lucide-react";
 
 const Dashboard = () => {
+
   return (
     <>
       <MainLayout>
@@ -26,21 +27,6 @@ const Dashboard = () => {
                 <h1 className="text-sm font-bold">Team :</h1>
                 <p className="text-sm font-semibold">Front End Developers</p>
               </Button>
-              <div className="h-full flex gap-1">
-                <input
-                  type="text"
-                  placeholder="Enter invitation code"
-                  className="h-full outline-none border-2 border-gray-600 rounded-lg px-2 text-sm "
-                />
-                <Button
-                  radius="sm"
-                  variant="shadow"
-                  color="warning"
-                  className="font-semibold"
-                >
-                  Join
-                </Button>
-              </div>
             </div>
             <Chip
               color="warning"

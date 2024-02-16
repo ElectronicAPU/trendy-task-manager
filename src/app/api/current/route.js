@@ -8,7 +8,6 @@ export async function GET(req) {
     await connectDB();
     const userToken = await req.cookies.get("token")?.value;
 
-    console.log(userToken);
     if (!userToken) {
       return NextResponse.json({
         message: "User not logged in",

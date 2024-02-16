@@ -1,4 +1,4 @@
-import { Card, CardBody, Chip, Tab, Tabs } from "@nextui-org/react";
+import { Button, Card, CardBody, Chip, Tab, Tabs } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import NoTasks from "../TaskComponents/no-tasks";
 import AllTasks from "../TaskComponents/all-tasks";
@@ -11,6 +11,7 @@ const TasksTab = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
 
   const { user } = useAppContext();
 
@@ -33,6 +34,17 @@ const TasksTab = () => {
     getTasks();
   }, [refresh, user]);
 
+  // console.log(allTasks.filter((tasks) => tasks.title.toLowerCase().includes("yo")));
+
+  const keys = ["title", "description"];
+
+  const search = (data) => {
+    return data?.filter((tasks) =>
+      keys.some((key) => tasks[key].toLowerCase().includes(query.toLowerCase()))
+    );
+  };
+  
+
   return (
     <>
       <div className="flex w-full flex-col">
@@ -44,19 +56,40 @@ const TasksTab = () => {
         >
           <Tab key="owned" title="Owned Tasks">
             <Card radius="sm" shadow="none">
-              <CardBody>
+              <CardBody className="p-0">
                 <div className="flex items-center gap-1 pb-2 font-semibold text-sm">
-                  <NotebookTabs className="w-4" />
-                  {allTasks?.length === 0 ? (
-                    <p>Add your first task</p>
-                  ) : (
-                    <p>Add more tasks</p>
-                  )}
+                  <div className="flex flex-col-reverse sm:flex-row gap-2 justify-between w-full h-full">
+                    <div className="flex gap-2 items-center">
+                      <NotebookTabs className="w-4" />
+                      {allTasks?.length === 0 ? (
+                        <p>Add your first task</p>
+                      ) : (
+                        <p>Add more tasks</p>
+                      )}
+                    </div>
+
+                    <div className="h-full flex gap-1">
+                      <input
+                        onChange={(e) => setQuery(e.target.value)}
+                        type="text"
+                        placeholder="Search by title & descriptions..."
+                        className="h-10 w-full outline-none border-2 placeholder:font-normal rounded-lg px-2 text-sm "
+                      />
+                      <Button
+                        radius="sm"
+                        variant="shadow"
+                        color="warning"
+                        className="font-semibold w-16 hidden sm:block"
+                      >
+                        Search
+                      </Button>
+                    </div>
+                  </div>
                 </div>
                 <div className="">
                   <AllTasks
                     loading={loading}
-                    allTasks={allTasks}
+                    allTasks={search(allTasks)}
                     refresh={refresh}
                     setRefresh={setRefresh}
                   />
